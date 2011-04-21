@@ -1,0 +1,62 @@
+<% if(mobile_device?) %>
+
+  <!-- Code Viewable to mobile devices -->
+  <%= content_for :head do %>
+    <%= stylesheet_link_tag 'sencha-touch-debug' %>
+    <%= javascript_include_tag 'touch_1_0_1/sencha-touch-debug' %>
+
+    <%= javascript_include_tag 'app/app' %>
+    <%= javascript_include_tag 'app/util' %>
+    <%= javascript_include_tag 'app/models/Contact' %>
+    <%= javascript_include_tag 'app/views/ContactCatalog' %>
+    <%= javascript_include_tag 'app/views/ContactEdit' %>
+    <%= javascript_include_tag 'app/views/ContactNew' %>
+    <%= javascript_include_tag 'app/views/ContactShow' %>
+    <%= javascript_include_tag 'app/views/ContactsList' %>
+    <%= javascript_include_tag 'app/views/Viewport' %>
+    <%= javascript_include_tag 'app/controllers/contacts' %>
+    
+    <style>
+      .synced {
+        background-color: #EDE613;
+      }
+    </style>
+
+  <% end %>
+
+<% else %>
+  <%= content_for :head do %>
+    <%= stylesheet_link_tag 'scaffold' %>
+    <%= javascript_include_tag :defaults %>
+  <% end %>
+  <h1>Listing contacts</h1>
+
+  <table>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @contacts.each do |contact| %>
+    <tr>
+      <td><%= contact.first_name %></td>
+      <td><%= contact.last_name %></td>
+      <td><%= contact.email %></td>
+      <td><%= contact.phone %></td>
+      <td><%= link_to 'Show', contact %></td>
+      <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+      <td><%= link_to 'Destroy', contact, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <br />
+
+  <%= link_to 'New Contact', new_contact_path %>
+
+<% end %>
